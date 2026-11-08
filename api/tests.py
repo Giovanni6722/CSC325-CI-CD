@@ -30,3 +30,11 @@ class IndexEndpointTests(APITestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response["Location"], "/api/")
+
+        
+
+class AddEndpointTests(APITestCase):
+    def test_add_returns_sum(self):
+        response = self.client.get(reverse("add"), {"a": 2, "b": 3})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["result"], 5)
