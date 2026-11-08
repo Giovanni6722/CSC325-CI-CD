@@ -29,3 +29,14 @@ def health(request):
 def hello(request):
     name = request.query_params.get("name", "World").strip() or "World"
     return Response({"message": f"Hello, {name}!"})
+
+
+
+@api_view(["GET"])
+def add(request):
+    try:
+        a = int(request.query_params.get("a", 0))
+        b = int(request.query_params.get("b", 0))
+    except ValueError:
+        return Response({"error": "a and b must be integers"}, status=400)
+    return Response({"a": a, "b": b, "result": a + b})
